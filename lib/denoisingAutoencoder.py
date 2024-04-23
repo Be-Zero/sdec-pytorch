@@ -25,16 +25,25 @@ def adjust_learning_rate(init_lr, optimizer, epoch):
 class DenoisingAutoencoder(nn.Module):
     def __init__(self, in_features, out_features, activation="relu", 
         dropout=0.2, tied=False):
+        """denoising autoencoder
+
+        Args:
+            in_features (net layer): input layer
+            out_features (_type_): output layer
+            activation (str, optional): active function. Defaults to "relu".
+            dropout (float, optional): dropout rate. Defaults to 0.2.
+            tied (bool, optional): _description_. Defaults to False.
+        """
         super(self.__class__, self).__init__()
         self.in_features = in_features
         self.out_features = out_features
-        self.weight = Parameter(torch.Tensor(out_features, in_features))
+        self.weight = Parameter(torch.Tensor(out_features, in_features))  # weight initialization
         if tied:
-            self.deweight = self.weight.t()
+            self.deweight = self.weight.t()  # 转置
         else:
-            self.deweight = Parameter(torch.Tensor(in_features, out_features))
-        self.bias = Parameter(torch.Tensor(out_features))
-        self.vbias = Parameter(torch.Tensor(in_features))
+            self.deweight = Parameter(torch.Tensor(in_features, out_features))  # weight initialization
+        self.bias = Parameter(torch.Tensor(out_features))  # bias initialization
+        self.vbias = Parameter(torch.Tensor(in_features))  # vbias initialization
         
         if activation=="relu":
             self.enc_act_func = nn.ReLU()

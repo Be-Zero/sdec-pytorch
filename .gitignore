@@ -1,3 +1,5 @@
 dataset/
 model/
+picture/
 *.pyc
+__pycache__
